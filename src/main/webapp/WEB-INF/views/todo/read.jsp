@@ -42,45 +42,48 @@
                     Featured
                 </div>
                 <div class="card-body">
-                    <form action="/todo/register" method="post">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Title</span>
-                            <input type="text" name="title" class="form-control" placeholder="Title">
-                        </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Tno</span>
+                        <input type="text" name="tno" class="form-control" value="${dto.tno}" readonly>
+                    </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">DueDate</span>
-                            <input type="date" name="dueDate" class="form-control">
-                        </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Title</span>
+                        <input type="text" name="title" class="form-control" value="${dto.title}" readonly>
+                    </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Writer</span>
-                            <input type="text" name="writer" class="form-control" placeholder="Writer">
-                        </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">DueDate</span>
+                        <input type="date" name="dueDate" class="form-control" value="${dto.dueDate}" readonly>
+                    </div>
 
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                Finished &nbsp;
-                            </label>
-                            <input class="form-check-input" type="checkbox" name="finished">
-                        </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Writer</span>
+                        <input type="text" name="writer" class="form-control" value="${dto.writer}" readonly>
+                    </div>
 
-                        <div class="my-4">
-                            <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
-                            </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            Finished &nbsp;
+                        </label>
+                        <input class="form-check-input" type="checkbox" name="finished" ${dto.finished ? "checked" : ""} disabled >
+                    </div>
+
+                    <div class="my-4">
+                        <div class="float-end">
+                            <button type="button" class="btn btn-primary">Modify</button>
+                            <button type="button" class="btn btn-secondary">List</button>
                         </div>
-                    </form>
+                    </div>
+
                     <script>
+                        document.querySelector(".btn-primary").addEventListener("click", function (e) {
+                            self.location = "/todo/modify?tno="+${dto.tno}
+                        }, false)
 
-                        const serverValidResult = {}
-
-                        <c:forEach items="${errors}" var="error">
-                            serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
-                        </c:forEach>
-
-                        console.log(serverValidResult)
+                        document.querySelector(".btn-secondary").addEventListener("click", function (e){
+                            self.location = "/todo/list";
+                        }, false)
                     </script>
                 </div>
             </div>

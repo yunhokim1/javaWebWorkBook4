@@ -42,48 +42,90 @@
                     Featured
                 </div>
                 <div class="card-body">
-                    <form action="/todo/register" method="post">
+                    <form action="/todo/modify" method="post">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Tno</span>
+                            <input type="text" name="tno" class="form-control" value="${dto.tno}" readonly>
+                        </div>
+
                         <div class="input-group mb-3">
                             <span class="input-group-text">Title</span>
-                            <input type="text" name="title" class="form-control" placeholder="Title">
+                            <input type="text" name="title" class="form-control" value="${dto.title}">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">DueDate</span>
-                            <input type="date" name="dueDate" class="form-control">
+                            <input type="date" name="dueDate" class="form-control" value="${dto.dueDate}">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">Writer</span>
-                            <input type="text" name="writer" class="form-control" placeholder="Writer">
+                            <input type="text" name="writer" class="form-control" value="${dto.writer}" readonly>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
                                 Finished &nbsp;
                             </label>
-                            <input class="form-check-input" type="checkbox" name="finished">
+                            <input class="form-check-input" type="checkbox" name="finished" ${dto.finished ? "checked" : ""} >
                         </div>
 
                         <div class="my-4">
                             <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="button" class="btn btn-danger">Remove</button>
+                                <button type="button" class="btn btn-primary">Modify</button>
+                                <button type="button" class="btn btn-secondary">List</button>
                             </div>
                         </div>
                     </form>
-                    <script>
-
-                        const serverValidResult = {}
-
-                        <c:forEach items="${errors}" var="error">
-                            serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
-                        </c:forEach>
-
-                        console.log(serverValidResult)
-                    </script>
                 </div>
+
+                <script>
+
+                    const serverValidResult = {}
+
+                    <c:forEach items="${errors}" var="error">
+
+                    serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
+
+                    </c:forEach>
+
+                    console.log(serverValidResult)
+                </script>
             </div>
+
+            <script>
+
+                const formObj = document.querySelector("form")
+
+                document.querySelector(".btn-danger").addEventListener("click", function (e) {
+
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+                    formObj.action = "/todo/remove"
+                    formObj.method = "post"
+
+                    formObj.submit()
+
+                }, false);
+
+                document.querySelector(".btn-primary").addEventListener("click", function (e) {
+
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+
+                    formObj.action = "/todo/modify"
+                    formObj.method = "post"
+
+                    formObj.submit()
+
+                }, false);
+
+                document.querySelector(".btn-secondary").addEventListener("click", function (e){
+                    self.location = "/todo/list";
+                }, false);
+
+            </script>
         </div>
     </div>
     <div class="row footer">
