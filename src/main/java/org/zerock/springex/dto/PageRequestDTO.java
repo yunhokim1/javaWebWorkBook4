@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.io.UnsupportedEncodingException;
@@ -25,6 +26,7 @@ public class PageRequestDTO {
 
     @Builder.Default
     @Min(value = 10)
+    @Max(value = 100)
     @Positive
     private int size = 10;
 
